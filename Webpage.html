@@ -1,55 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analog Photography Workshop</title>
+    <title>Analogfotografie Workshop</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Montserrat & Hind -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
 
     <style>
-        /* Custom styles */
+        /* Custom styles with new font pairing and color palette */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa; /* Light gray background */
+            font-family: 'Hind', sans-serif;
+            background-color: #eeede8; /* RGB(238, 237, 232) */
+            color: #656c74; /* RGB(101, 108, 116) */
         }
-        .video-header {
-            position: relative;
-            height: 60vh;
-            overflow: hidden;
-        }
-        #bg-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translateX(-50%) translateY(-50%);
-            z-index: -1;
-        }
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', serif;
+            color: #262125; /* RGB(38, 33, 37) */
         }
         .nav-link {
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, border-color 0.3s ease;
+            font-family: 'Hind', sans-serif;
+            font-weight: 600;
+        }
+        .nav-link:hover {
+            color: #a47f48; /* Gold Accent: RGB(164, 127, 72) */
         }
         .nav-link.active {
-            color: #3b82f6; /* Blue-500 for active link */
-            border-bottom: 2px solid #3b82f6;
+            color: #a47f48;
+            border-bottom: 2px solid #a47f48;
+        }
+        .custom-btn {
+            background-color: #a47f48;
+            color: #ffffff;
+            transition: all 0.2s ease-in-out;
+        }
+        .custom-btn:hover {
+            background-color: #8e6d3c; /* Darker gold for hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        /* Custom focus styles for form inputs */
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus {
+            --tw-ring-color: #a47f48;
+            border-color: #a47f48;
+        }
+        /* Custom radio button check color */
+        input[type="radio"] {
+            color: #a47f48;
+        }
+        input[type="radio"]:focus {
+             --tw-ring-color: #a47f48;
         }
         /* Page transition animation */
         .page {
@@ -63,126 +73,178 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* Styles for the map dropdown */
+        #map-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out;
+        }
+        #map-container.open {
+            max-height: 500px; /* A value larger than the map's height */
+        }
     </style>
 </head>
-<body class="text-gray-800">
+<body>
 
     <!-- Main Container -->
     <div class="container mx-auto max-w-5xl p-4 md:p-8">
 
         <!-- Header Section -->
-        <header class="video-header rounded-lg shadow-lg mb-8">
-            <video playsinline autoplay muted loop poster="https://placehold.co/1200x600/000000/FFFFFF?text=Loading+Video..." id="bg-video">
-                <!-- A royalty-free video related to photography -->
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-photographer-taking-pictures-in-a-large-city-4000-large.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="video-overlay rounded-lg"></div>
-            <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center p-4">
-                <h1 class="text-4xl md:text-6xl font-bold mb-2">Analog Photography Workshop</h1>
-                <p class="text-lg md:text-xl">Rediscover the art of film.</p>
-            </div>
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-6xl font-bold mb-2">Analogfotografie Workshop</h1>
+            <p class="text-lg md:text-xl mb-6">Neu in Graz.</p>
+            <!-- Modernized image style -->
+            <img src="photos/photo2_1000px.jpg"
+                 srcset="photos/photo2_600px.jpg 600w,
+                         photos/photo2_1000px.jpg 1000w,
+                         photos/photo2_1600px.jpg 1600w"
+                 sizes="100vw"
+                 alt="Analoge Fotoausrüstung" 
+                 class="w-full h-auto rounded-xl shadow-sm object-cover ring-1 ring-black/5"
+                 onerror="this.onerror=null;this.src='https://placehold.co/1200x600/e0e0e0/666?text=Bild+nicht+gefunden';">
         </header>
 
         <!-- Navigation -->
-        <nav class="bg-white rounded-lg shadow-md mb-8 p-4 flex justify-center space-x-6 md:space-x-10">
-            <a id="nav-info" class="nav-link text-lg font-medium text-gray-600 hover:text-blue-500 pb-2">Info</a>
-            <a id="nav-booking" class="nav-link text-lg font-medium text-gray-600 hover:text-blue-500 pb-2">Book Now</a>
+        <nav class="bg-white/60 rounded-xl shadow-sm mb-8 p-4 flex justify-center space-x-6 md:space-x-10 backdrop-blur-md ring-1 ring-black/5">
+            <a id="nav-info" class="nav-link text-lg pb-2">Info</a>
+            <a id="nav-booking" class="nav-link text-lg pb-2">Jetzt Buchen</a>
         </nav>
 
         <!-- Main Content: Pages will be toggled here -->
         <main id="main-content">
 
             <!-- Page 1: Workshop Info -->
-            <section id="page-info" class="page active bg-white rounded-lg shadow-md p-6 md:p-10">
-                <h2 class="text-3xl font-bold mb-6 border-b pb-4">About the Workshop</h2>
-                <div class="space-y-8">
+            <section id="page-info" class="page active bg-white/60 rounded-xl shadow-sm p-6 md:p-10 backdrop-blur-md ring-1 ring-black/5">
+                <h2 class="text-3xl font-bold mb-6 text-center">Ab sofort regelmäßig in Graz!</h2>
+                <div class="space-y-10">
                     <div>
-                        <h3 class="text-2xl font-semibold mb-3">What You'll Learn</h3>
-                        <p class="text-lg leading-relaxed mb-4">
-                            This hands-on workshop is designed for beginners and enthusiasts who want to dive into the world of analog photography. We'll move beyond automatic settings and explore the fundamentals of creating beautiful images on film.
+                        <h3 class="text-2xl font-bold mb-3 border-b pb-2" style="border-color: rgba(164, 127, 72, 0.2);">Über die Workshops</h3>
+                        <p class="text-lg leading-relaxed">
+                            Unsere Workshops finden einmal pro Woche samstags statt und bieten dir die Möglichkeit, dich am Anfang jedes Monats flexibel für einen oder mehrere Termine anzumelden. Jede Woche widmen wir uns spannenden, neuen Themen. Jeder Workshop besteht aus einer Stunde Theorie, gefolgt von drei Stunden Praxis. Dabei geht es nicht nur ums Lernen, sondern auch um den Austausch und die Geselligkeit! Wir möchten, dass die Workshops gleichermaßen ein Ort des menschlichen Austauschs und der fotografischen Weiterbildung sind.
                         </p>
-                        <ul class="list-disc list-inside space-y-2 text-lg">
-                            <li><strong>Camera Basics:</strong> Understanding aperture, shutter speed, and ISO.</li>
-                            <li><strong>Film Stocks:</strong> Exploring different types of film and their characteristics.</li>
-                            <li><strong>Composition:</strong> Techniques for creating compelling photographs.</li>
-                            <li><strong>Lighting:</strong> How to use natural light to your advantage.</li>
-                            <li><strong>Developing & Scanning:</strong> An introduction to the darkroom and digitization process.</li>
-                        </ul>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-semibold mb-3">What to Bring</h3>
+                        <h3 class="text-2xl font-bold mb-3 border-b pb-2" style="border-color: rgba(164, 127, 72, 0.2);">Preise und Teilnehmerzahlen</h3>
                         <p class="text-lg leading-relaxed">
-                            Please bring your own 35mm film camera. If you don't have one, we have a limited number of cameras available for rent for an additional €10. One roll of black and white film is included in the workshop price.
+                           Die Teilnahmegebühr beträgt 50 EUR brutto. Wir haben diesen Preis bewusst gewählt, um dir eine regelmäßige Teilnahme erschwinglich zu machen. Damit der Workshop stattfinden kann, benötigen wir mindestens 6 Anmeldungen.
                         </p>
+                    </div>
+                     <div>
+                        <h3 class="text-2xl font-bold mb-3 border-b pb-2" style="border-color: rgba(164, 127, 72, 0.2);">Ort</h3>
+                        <p class="text-lg leading-relaxed mb-4">
+                           Die Theoriestunde findet in meinem Studio Blend. statt. Die anschließende Praxis ist flexibel und kann je nach Stimmung, Wetter oder Inhalt variieren – lass dich überraschen!
+                        </p>
+                        <!-- Button to toggle map visibility -->
+                        <button id="toggle-map-btn" class="custom-btn w-full font-bold py-2 px-4 rounded-lg mb-4 shadow-md">
+                            Karte anzeigen
+                        </button>
+                        <!-- Map container for dropdown -->
+                        <div id="map-container" class="rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2798.704722806361!2d15.421751076277745!3d47.073061424668744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476e35758e45186b%3A0x5f43256b18e73726!2sFotostudio%20Blendpunkt!5e1!3m2!1sde!2sat!4v1754131591570!5m2!1sde!2sat" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3 border-b pb-2" style="border-color: rgba(164, 127, 72, 0.2);">Was du mitbringen solltest</h3>
+                        <p class="text-lg leading-relaxed">
+                            Deine Kamera (am liebsten analog!), Interesse und natürlich viel Freude an der Fotografie!
+                        </p>
+                    </div>
+                    <!-- Instructor Section -->
+                    <div class="border-t pt-8" style="border-color: rgba(164, 127, 72, 0.2);">
+                        <h3 class="text-2xl font-bold mb-4">Lerne den Workshopleiter kennen</h3>
+                        <div class="flex flex-col md:flex-row items-center gap-6">
+                            <!-- Updated img tag with srcset for the instructor image (photo1) -->
+                            <img src="photos/photo1_1000px.jpg"
+                                 srcset="photos/photo1_600px.jpg 600w,
+                                         photos/photo1_1000px.jpg 1000w,
+                                         photos/photo1_1600px.jpg 1600w"
+                                 sizes="160px"
+                                 alt="Portrait von René Böhmer" 
+                                 class="w-40 h-40 rounded-full shadow-sm object-cover flex-shrink-0 ring-1 ring-black/5"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/400x400/c0c0c0/333?text=Bild+nicht+gefunden';">
+                            <div>
+                                <h4 class="text-xl font-bold">René Böhmer</h4>
+                                <p class="text-lg leading-relaxed mt-2">
+                                    “Ich beschäftige mich seit vielen Jahren nahe zu ausschließlich mit analoger Fotografie. Mein Ansatz zielt
+darauf ab, die Fotografie zu simplifizieren und zu entschlüsseln, um ein menschlich freies
+und authentisches Arbeiten zu fördern.”
+
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- Page 2: Booking Form -->
-            <section id="page-booking" class="page bg-white rounded-lg shadow-md p-6 md:p-10">
-                <h2 class="text-3xl font-bold mb-6 border-b pb-4">Book Your Spot</h2>
-                <form id="booking-form" class="space-y-6">
+            <section id="page-booking" class="page bg-white/60 rounded-xl shadow-sm p-6 md:p-10 backdrop-blur-md ring-1 ring-black/5">
+                <h2 class="text-3xl font-bold mb-6 border-b pb-4" style="border-color: rgba(164, 127, 72, 0.2);">Buche deinen Platz</h2>
+                <!-- Form updated with Formspree endpoint -->
+                <form id="booking-form" action="https://formspree.io/f/movlnjgk" method="POST" class="space-y-6">
                     <!-- Date Selection -->
                     <div>
-                        <label class="block text-xl font-semibold mb-3">Choose a Date</label>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <label class="block p-4 border rounded-lg cursor-pointer hover:bg-blue-50 transition">
-                                <input type="radio" name="workshop_date" value="2025-08-15" class="mr-2" required>
-                                <span class="font-bold text-lg">August 15, 2025</span>
+                        <label class="block text-xl font-bold mb-3">Wähle ein Datum</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <label class="block p-4 border border-gray-900/10 rounded-xl cursor-pointer hover:bg-amber-50/50 transition">
+                                <input type="radio" name="workshop_date" value="2025-08-09" class="mr-2 focus:ring-1" required>
+                                <span class="font-semibold text-lg" style="color: #262125;">09. August 2025</span>
                             </label>
-                            <label class="block p-4 border rounded-lg cursor-pointer hover:bg-blue-50 transition">
-                                <input type="radio" name="workshop_date" value="2025-08-20" class="mr-2">
-                                <span class="font-bold text-lg">August 20, 2025</span>
+                            <label class="block p-4 border border-gray-900/10 rounded-xl cursor-pointer hover:bg-amber-50/50 transition">
+                                <input type="radio" name="workshop_date" value="2025-08-16" class="mr-2 focus:ring-1">
+                                <span class="font-semibold text-lg" style="color: #262125;">16. August 2025</span>
                             </label>
-                            <label class="block p-4 border rounded-lg cursor-pointer hover:bg-blue-50 transition">
-                                <input type="radio" name="workshop_date" value="2025-08-25" class="mr-2">
-                                <span class="font-bold text-lg">August 25, 2025</span>
+                            <label class="block p-4 border border-gray-900/10 rounded-xl cursor-pointer hover:bg-amber-50/50 transition">
+                                <input type="radio" name="workshop_date" value="2025-08-23" class="mr-2 focus:ring-1">
+                                <span class="font-semibold text-lg" style="color: #262125;">23. August 2025</span>
                             </label>
                         </div>
                     </div>
 
                     <!-- Workshop Details -->
-                    <div class="bg-gray-100 p-4 rounded-lg flex flex-wrap justify-between items-center text-lg">
-                        <div class="p-2"><strong>Time:</strong> 12:00 PM</div>
-                        <div class="p-2"><strong>Duration:</strong> 4 Hours</div>
-                        <div class="p-2"><strong>Price:</strong> €50</div>
+                    <div class="bg-black/5 p-4 rounded-xl flex flex-wrap justify-between items-center text-lg">
+                        <div class="p-2"><strong class="font-semibold">Uhrzeit:</strong> 12:00</div>
+                        <div class="p-2"><strong class="font-semibold">Dauer:</strong> 4 Stunden</div>
+                        <div class="p-2"><strong class="font-semibold">Preis:</strong> 50 €</div>
                     </div>
 
                     <!-- Personal Information -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                            <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <label for="name" class="block text-sm font-semibold mb-1">Vollständiger Name</label>
+                            <input type="text" id="name" name="name" required class="w-full p-3 bg-white/80 border border-gray-900/10 rounded-lg focus:ring-2">
                         </div>
                         <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <label for="email" class="block text-sm font-semibold mb-1">E-Mail-Adresse</label>
+                            <input type="email" id="email" name="email" required class="w-full p-3 bg-white/80 border border-gray-900/10 rounded-lg focus:ring-2">
                         </div>
                     </div>
                      <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <label for="phone" class="block text-sm font-semibold mb-1">Telefonnummer</label>
+                        <input type="tel" id="phone" name="phone" required class="w-full p-3 bg-white/80 border border-gray-900/10 rounded-lg focus:ring-2">
                     </div>
 
                     <!-- Submit Button -->
                     <div>
-                        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300 shadow-lg">
-                            Confirm Booking
+                        <button type="submit" class="custom-btn w-full font-bold py-3 px-4 rounded-lg shadow-md">
+                            Buchung bestätigen
                         </button>
                     </div>
                 </form>
                 <!-- Success Message -->
                 <div id="success-message" class="hidden mt-6 p-4 bg-green-100 text-green-800 border border-green-300 rounded-lg">
-                    Thank you for your booking! We've sent a confirmation to your email.
+                    Vielen Dank für deine Buchung! Wir haben eine Bestätigung an deine E-Mail-Adresse gesendet.
+                </div>
+                <!-- Error Message -->
+                <div id="error-message" class="hidden mt-6 p-4 bg-red-100 text-red-800 border border-red-300 rounded-lg">
+                    Hoppla! Beim Senden des Formulars ist ein Problem aufgetreten. Bitte versuche es später erneut.
                 </div>
             </section>
 
         </main>
 
         <!-- Footer -->
-        <footer class="text-center mt-12 text-gray-500">
-            <p>&copy; 2025 Analog Moments. All Rights Reserved.</p>
+        <footer class="text-center mt-12">
+            <p>&copy; 2025 René Böhmer. Alle Rechte vorbehalten.</p>
         </footer>
 
     </div>
@@ -197,6 +259,9 @@
             const pageBooking = document.getElementById('page-booking');
             const bookingForm = document.getElementById('booking-form');
             const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+            const toggleMapBtn = document.getElementById('toggle-map-btn');
+            const mapContainer = document.getElementById('map-container');
 
             // Function to switch between pages
             function showPage(pageId) {
@@ -225,34 +290,56 @@
             navInfo.addEventListener('click', () => showPage('page-info'));
             navBooking.addEventListener('click', () => showPage('page-booking'));
 
-            // Handle form submission
+            // Map toggle event listener
+            toggleMapBtn.addEventListener('click', () => {
+                const isOpen = mapContainer.classList.contains('open');
+                if (isOpen) {
+                    mapContainer.classList.remove('open');
+                    toggleMapBtn.textContent = 'Karte anzeigen';
+                } else {
+                    mapContainer.classList.add('open');
+                    toggleMapBtn.textContent = 'Karte ausblenden';
+                }
+            });
+
+            // Handle form submission with fetch for Formspree
             bookingForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the default form submission
+                event.preventDefault(); // Prevent the default form redirect
 
-                // In a real application, you would send this data to a server.
-                // For this example, we'll just log it to the console and show a success message.
-                
                 const formData = new FormData(bookingForm);
-                const bookingData = {
-                    date: formData.get('workshop_date'),
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    phone: formData.get('phone')
-                };
+                const formAction = bookingForm.getAttribute('action');
 
-                console.log('Booking Submitted:', bookingData);
-
-                // Hide the form and show the success message
-                bookingForm.style.display = 'none';
-                successMessage.style.display = 'block';
-                
-                // Optional: reset the form after a delay
-                setTimeout(() => {
-                    bookingForm.reset();
-                    bookingForm.style.display = 'block';
+                fetch(formAction, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        // Show success message
+                        bookingForm.style.display = 'none';
+                        successMessage.style.display = 'block';
+                        errorMessage.style.display = 'none';
+                        
+                        // Optional: reset form and switch page after a delay
+                        setTimeout(() => {
+                            bookingForm.reset();
+                            bookingForm.style.display = 'block';
+                            successMessage.style.display = 'none';
+                            showPage('page-info');
+                        }, 5000);
+                    } else {
+                        // Handle server errors
+                        errorMessage.style.display = 'block';
+                        successMessage.style.display = 'none';
+                    }
+                }).catch(error => {
+                    // Handle network errors
+                    console.error('Form submission error:', error);
+                    errorMessage.style.display = 'block';
                     successMessage.style.display = 'none';
-                    showPage('page-info'); // Go back to info page after successful booking
-                }, 5000); // 5 seconds
+                });
             });
         });
     </script>
